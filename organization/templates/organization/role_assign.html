@@ -1,0 +1,7 @@
+{% extends "organization/base.html" %} {% block content %}
+<h1>Assign Role</h1>
+<form method="post">
+  {% csrf_token %} {{ form.as_p }}
+  <button type="submit" class="btn btn-primary">Assign</button>
+</form>
+{% endblock %}

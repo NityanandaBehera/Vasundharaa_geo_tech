@@ -1,0 +1,40 @@
+{% extends "organization/base.html" %} {% block content %}
+<h1>Organizations</h1>
+<a href="{% url 'organization_create' %}" class="btn btn-primary mb-3"
+  >Add Organization</a
+>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Address</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for organization in organizations %}
+    <tr>
+      <td>{{ organization.name }}</td>
+      <td>{{ organization.address }}</td>
+      <td>
+        <a
+          href="{% url 'organization_detail' organization.id %}"
+          class="btn btn-info btn-sm"
+          >View</a
+        >
+        <a
+          href="{% url 'organization_update' organization.id %}"
+          class="btn btn-warning btn-sm"
+          >Edit</a
+        >
+        <a
+          href="{% url 'organization_delete' organization.id %}"
+          class="btn btn-danger btn-sm"
+          >Delete</a
+        >
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "organization/base.html" %} {% block content %}
+<div class="container mt-4">
+  <h1>Organization Details</h1>
+  <hr />
+  <h3>{{ organization.name }}</h3>
+  <p><strong>Address:</strong> {{ organization.address }}</p>
+  <p><strong>Created At:</strong> {{ organization.created_at}}</p>
+
+  <h4 class="mt-4">Users in this Organization</h4>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>No.</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>
+          {% if user.role %} {{ user.role.name }} {% else %} No Role Assigned
+          for this user {% endif %}
+        </td>
+        <td>
+          <a
+            href="{% url 'user_update' user.id %}"
+            class="btn btn-sm btn-primary"
+            >Edit</a
+          >
+          <a
+            href="{% url 'assign_role' user.id %}"
+            class="btn btn-sm btn-secondary"
+            >Assign Role</a
+          >
+          <a
+            href="{% url 'user_delete' user.id %}"
+            class="btn btn-sm btn-danger"
+            >Delete</a
+          >
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="5" class="text-center">
+          No users found in this organization.
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <a href="{% url 'organization_list' %}" class="btn btn-secondary"
+    >Back to Organizations</a
+  >
+</div>
+{% endblock %}
